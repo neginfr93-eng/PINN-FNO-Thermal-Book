@@ -1,11 +1,11 @@
 format: jb-book
 root: README
 chapters:
-  - file: 1D_Thermal_PINN_FEM_FDM
+  - file: 1D_Thermal_PINN_FEM_FDM.ipynb
     title: Step 1: 1D Thermal PINN
-  - file: FNO_STEADY _STATE
+  - file: FNO_STEADY _STATE.ipynb
     title: Step 2: Steady-State FNO
-  - file: FNO_TRANSIENT
+  - file: FNO_TRANSIENT.ipynb
     title: step 3: Transient_FNO
-  - file: FOL_Steady_state_DON_FNO
+  - file: FOL_Steady_state_DON_FNO,ipynb
     title: FOL_steady_state_DON_FNO
