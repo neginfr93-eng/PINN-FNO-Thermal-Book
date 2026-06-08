@@ -3,7 +3,7 @@ root: README
 chapters:
   - file: 1D_Thermal_PINN_FEM_FDM
     title: Step 1: 1D Thermal PINN
-  - file: FNO_STEADY_STATE
+  - file: FNO_STEADY _STATE
     title: Step 2: Steady-State FNO
   - file: FNO_TRANSIENT
     title: step 3: Transient_FNO
