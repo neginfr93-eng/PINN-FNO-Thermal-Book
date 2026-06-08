@@ -7,5 +7,5 @@ chapters:
     title: Step 2: Steady-State FNO
   - file: FNO_TRANSIENT
     title: step 3: Transient_FNO
-  - file: FOL_steady_state_DON_FNO
+  - file: FOL_Steady_state_DON_FNO
     title: FOL_steady_state_DON_FNO
