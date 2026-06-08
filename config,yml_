@@ -1,0 +1,9 @@
+title: 1D Thermal Deep Learning Book
+author: Negin
+logo: logo.png
+
+
+html:
+  use_edit_page_button: true
+  use_repository_button: true
+  use_issues_button: true
