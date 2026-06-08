@@ -8,6 +8,13 @@ on:
 jobs:
   deploy-book:
     runs-on: ubuntu-latest
+    
+    # --- THIS IS THE FIX ---
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # -----------------------
+      
     permissions:
       pages: write
       id-token: write
@@ -20,7 +27,6 @@ jobs:
         python-version: 3.11
 
     - name: Install dependencies
-      # We pin jupyter-book to a stable version to prevent the EISDIR crash!
       run: |
         pip install "jupyter-book<=0.15.1"
 
