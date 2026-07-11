@@ -1,16 +1,30 @@
-# 1D Thermal PINN & Neural Operators Book
+# Neural Operators for Nonlinear Heat Conduction
 
-This repository documents the journey of my Master's thesis, focusing on solving 1D thermal problems using Physics-Informed Neural Networks (PINNs) and Fourier Neural Operators (FNOs). 
+A structured, article-style study of physics-informed and data-driven **neural operators**
+for 1-D nonlinear heat conduction, built as a Jupyter Book and hosted on GitHub Pages.
 
-## 🗺️ Project Roadmap
-- **Step 1:** PINN code, 1D thermal (Current Step)
-- **Step 2:** NO code, 1D thermal
-- **Step 3:** Transient NO code, 1D thermal
-- **Step 4:** FNO with thermal, AR and NODE
-- **Step 5:** Literature review on DL/NO applications
-- **Step 6:** FNO with Phase Field (PF)
-- **Step 7:** MICRESS data training
-- **Step 8:** Architecture comparisons (FNO, iFNO, AR, NODE)
+## Structure
 
-## 📁 Repository Structure
-* `1D_Thermal_PINN_FEM_FDM.ipynb`: Implementation of Step 1, comparing PINN with Finite Element Method (FEM) and Finite Difference Method (FDM).
+**I. Foundations — Solvers and Neural Networks**
+- `1D_Thermal_PINN_FEM_FDM` — finite-element / finite-difference solvers and a PINN baseline.
+
+**II. Steady-State Neural Operators**
+- `FNO_STEADY_STATE` — the Fourier Neural Operator baseline.
+- `FNO_loss_comparison` — one FNO under three losses; concludes with the weighted-residual (FOL) loss.
+- `architecture_comparison` — FNO vs DeepONet vs iFOL vs Transformer; concludes with FNO.
+
+**III. Transient Neural Operators**
+- `FNO_transient_data_driven` — data-driven transient operator.
+- `FNO_transient_weighted_residual` — weighted-residual (label-free) transient operator.
+- `transient_comparison` — mean rollout error per step, data-driven vs weighted-residual.
+
+## Build & deploy
+
+```bash
+pip install -r requirements.txt
+jupyter-book build .
+ghp-import -n -p -f _build/html      # or just push to main; the GitHub Action rebuilds
+```
+
+Figures are published from the outputs stored in each notebook (`execute_notebooks: off`).
+See `CLAUDE.md` for project conventions and the open to-do list.

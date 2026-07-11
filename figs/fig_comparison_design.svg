@@ -1,0 +1,51 @@
+<svg viewBox="0 0 940 470" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <style>
+      .t{font-size:18px;font-weight:700;fill:#0f172a;}
+      .l{font-size:13.5px;fill:#0f172a;}
+      .s{font-size:11px;fill:#475569;}
+      .hdr{font-size:13px;font-weight:600;fill:#fff;}
+      .cell{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1;}
+    </style>
+  </defs>
+
+  <text x="20" y="30" class="t">Controlled scaling study: 4 architectures × 3 capacity tiers</text>
+  <text x="20" y="52" class="s">Same data, same optimizer, same epochs — only the model and its size change (a fair comparison).</text>
+
+  <!-- header row -->
+  <rect x="150" y="70" width="180" height="40" fill="#dc2626"/><text x="240" y="95" text-anchor="middle" class="hdr">FNO</text>
+  <rect x="330" y="70" width="180" height="40" fill="#2563eb"/><text x="420" y="95" text-anchor="middle" class="hdr">DeepONet</text>
+  <rect x="510" y="70" width="180" height="40" fill="#16a34a"/><text x="600" y="95" text-anchor="middle" class="hdr">iFOL</text>
+  <rect x="690" y="70" width="180" height="40" fill="#7c3aed"/><text x="780" y="95" text-anchor="middle" class="hdr">Transformer</text>
+
+  <!-- tier rows -->
+  <g>
+    <rect x="20" y="110" width="130" height="70" fill="#334155"/><text x="85" y="150" text-anchor="middle" class="hdr">Small</text>
+    <rect x="150" y="110" width="180" height="70" class="cell"/>
+    <rect x="330" y="110" width="180" height="70" class="cell"/>
+    <rect x="510" y="110" width="180" height="70" class="cell"/>
+    <rect x="690" y="110" width="180" height="70" class="cell"/>
+  </g>
+  <g>
+    <rect x="20" y="180" width="130" height="70" fill="#334155"/><text x="85" y="220" text-anchor="middle" class="hdr">Medium</text>
+    <rect x="150" y="180" width="180" height="70" class="cell"/>
+    <rect x="330" y="180" width="180" height="70" class="cell"/>
+    <rect x="510" y="180" width="180" height="70" class="cell"/>
+    <rect x="690" y="180" width="180" height="70" class="cell"/>
+  </g>
+  <g>
+    <rect x="20" y="250" width="130" height="70" fill="#334155"/><text x="85" y="290" text-anchor="middle" class="hdr">Large</text>
+    <rect x="150" y="250" width="180" height="70" class="cell"/>
+    <rect x="330" y="250" width="180" height="70" class="cell"/>
+    <rect x="510" y="250" width="180" height="70" class="cell"/>
+    <rect x="690" y="250" width="180" height="70" class="cell"/>
+  </g>
+
+  <text x="500" y="160" text-anchor="middle" class="s" fill="#94a3b8">each cell = one trained model</text>
+
+  <!-- metrics -->
+  <rect x="20" y="355" width="890" height="95" rx="10" fill="#f1f5f9" stroke="#334155" stroke-width="1.4"/>
+  <text x="35" y="382" class="l" font-weight="700">Recorded for every cell:</text>
+  <text x="45" y="408" class="s">• In-distribution accuracy (relative L2 vs. FEM)   • Out-of-distribution accuracy (unseen profiles, super-resolution)</text>
+  <text x="45" y="430" class="s">• Parameter count   • Training time &amp; inference time   • Convergence history</text>
+</svg>

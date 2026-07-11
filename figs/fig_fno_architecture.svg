@@ -1,0 +1,80 @@
+<svg viewBox="0 0 940 460" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#334155"/></marker>
+    <style>
+      .box{fill:#f1f5f9;stroke:#334155;stroke-width:1.6;rx:8;}
+      .lift{fill:#dbeafe;stroke:#1d4ed8;}
+      .spec{fill:#dcfce7;stroke:#15803d;}
+      .proj{fill:#fce7f3;stroke:#be185d;}
+      .lbl{font-size:14px;fill:#0f172a;}
+      .small{font-size:11.5px;fill:#475569;}
+      .title{font-size:18px;font-weight:700;fill:#0f172a;}
+      .tag{font-size:12px;fill:#334155;font-style:italic;}
+      .path{fill:none;stroke:#334155;stroke-width:1.6;marker-end:url(#ar);}
+    </style>
+  </defs>
+
+  <text x="20" y="30" class="title">Fourier Neural Operator (FNO) — one forward step  T&#8345; &#8594; T&#8345;&#8330;&#8321;</text>
+
+  <!-- Input channels -->
+  <rect x="20" y="70" width="120" height="120" rx="8" class="box"/>
+  <text x="80" y="60" text-anchor="middle" class="lbl" font-weight="600">Input (3 channels)</text>
+  <text x="35" y="100" class="small">T&#8345;(x)  temperature</text>
+  <text x="35" y="128" class="small">&#945;(x)  material coeff.</text>
+  <text x="35" y="156" class="small">x     spatial grid</text>
+
+  <!-- Lift -->
+  <rect x="175" y="90" width="95" height="80" rx="8" class="box lift"/>
+  <text x="222" y="125" text-anchor="middle" class="lbl">Lift  P</text>
+  <text x="222" y="145" text-anchor="middle" class="small">3 &#8594; 64</text>
+
+  <!-- Spectral stack -->
+  <rect x="305" y="55" width="330" height="150" rx="10" fill="#f8fafc" stroke="#15803d" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <text x="470" y="47" text-anchor="middle" class="tag">4 × Spectral Convolution layers</text>
+
+  <rect x="325" y="90" width="130" height="80" rx="8" class="box spec"/>
+  <text x="390" y="112" text-anchor="middle" class="small">FFT  &#8594;  keep k</text>
+  <text x="390" y="130" text-anchor="middle" class="small">low modes</text>
+  <text x="390" y="150" text-anchor="middle" class="small">× R  &#8594;  iFFT</text>
+
+  <text x="470" y="120" text-anchor="middle" class="lbl">+</text>
+  <text x="470" y="140" text-anchor="middle" class="small">GELU</text>
+
+  <rect x="490" y="90" width="125" height="80" rx="8" class="box"/>
+  <text x="552" y="125" text-anchor="middle" class="small">skip  W·x</text>
+  <text x="552" y="145" text-anchor="middle" class="small">(local features)</text>
+
+  <!-- Project -->
+  <rect x="670" y="90" width="95" height="80" rx="8" class="box proj"/>
+  <text x="717" y="120" text-anchor="middle" class="lbl">Project Q</text>
+  <text x="717" y="140" text-anchor="middle" class="small">64 &#8594; 1</text>
+
+  <!-- Residual update -->
+  <rect x="800" y="90" width="120" height="80" rx="8" class="box"/>
+  <text x="860" y="118" text-anchor="middle" class="small">T&#8345; + mask·&#916;T</text>
+  <text x="860" y="140" text-anchor="middle" class="small">= T&#8345;&#8330;&#8321;</text>
+
+  <!-- arrows -->
+  <path class="path" d="M140,130 L173,130"/>
+  <path class="path" d="M270,130 L323,130"/>
+  <path class="path" d="M615,130 L668,130"/>
+  <path class="path" d="M765,130 L798,130"/>
+
+  <!-- rollout note -->
+  <rect x="120" y="260" width="700" height="150" rx="12" fill="#fffbeb" stroke="#b45309" stroke-width="1.4"/>
+  <text x="470" y="288" text-anchor="middle" class="lbl" font-weight="700" fill="#92400e">Autoregressive rollout in time</text>
+  <text x="470" y="315" text-anchor="middle" class="small">The single-step operator is applied repeatedly: its own output becomes the next input.</text>
+
+  <g>
+    <rect x="150" y="335" width="90" height="46" rx="6" class="box"/><text x="195" y="363" text-anchor="middle" class="small">T&#8320;</text>
+    <rect x="300" y="335" width="90" height="46" rx="6" class="box"/><text x="345" y="363" text-anchor="middle" class="small">T&#8321;</text>
+    <rect x="450" y="335" width="90" height="46" rx="6" class="box"/><text x="495" y="363" text-anchor="middle" class="small">T&#8322;</text>
+    <rect x="600" y="335" width="90" height="46" rx="6" class="box"/><text x="645" y="363" text-anchor="middle" class="small">&#8230;  T&#8345;</text>
+    <path class="path" d="M240,358 L298,358"/>
+    <path class="path" d="M390,358 L448,358"/>
+    <path class="path" d="M540,358 L598,358"/>
+    <text x="269" y="350" text-anchor="middle" class="small" fill="#92400e">FNO</text>
+    <text x="419" y="350" text-anchor="middle" class="small" fill="#92400e">FNO</text>
+    <text x="569" y="350" text-anchor="middle" class="small" fill="#92400e">FNO</text>
+  </g>
+</svg>

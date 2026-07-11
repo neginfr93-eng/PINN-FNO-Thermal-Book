@@ -1,0 +1,30 @@
+title: "Neural Operators for Nonlinear Heat Conduction"
+author: Negin
+# logo: logo.png   # uncomment once you add a logo file
+
+repository:
+  url: https://github.com/neginfr93-eng/PINN-FNO-Thermal-Book
+  path_to_book: ""
+  branch: main
+
+html:
+  use_edit_page_button: true
+  use_repository_button: true
+  use_issues_button: true
+
+# CI installs only jupyter-book and does NOT run the models, so we publish the
+# figures already stored in each notebook. Keep this "off" unless the build
+# environment also installs jax/optax (see requirements.txt).
+execute:
+  execute_notebooks: "off"
+
+parse:
+  myst_enable_extensions:
+    - amsmath      # LaTeX align/equation environments
+    - dollarmath   # $...$ and $$...$$ math
+
+# keep project/helper files out of the published site
+exclude_patterns:
+  - CLAUDE.md
+  - requirements.txt
+  - _build

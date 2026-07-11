@@ -1,11 +1,19 @@
 format: jb-book
 root: README
-chapters:
-  - file: 1D_Thermal_PINN_FEM_FDM
-    title: "Step 1: 1D Thermal PINN"
-  - file: FNO_STEADY_STATE
-    title: "Step 2: Steady-State FNO"
-  - file: FNO_TRANSIENT
-    title: "Step 3: Transient FNO"
-  - file: FOL_Steady_satate_DON_FNO
-    title: "FOL_steady_state_DON_FNO"
+
+parts:
+  - caption: "I. Foundations — Solvers and Neural Networks"
+    chapters:
+      - file: 1D_Thermal_PINN_FEM_FDM
+
+  - caption: "II. Steady-State Neural Operators"
+    chapters:
+      - file: FNO_STEADY_STATE
+      - file: FNO_loss_comparison
+      - file: architecture_comparison
+
+  - caption: "III. Transient Neural Operators"
+    chapters:
+      - file: FNO_transient_data_driven
+      - file: FNO_transient_weighted_residual
+      - file: transient_comparison

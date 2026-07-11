@@ -1,0 +1,47 @@
+<svg viewBox="0 0 940 400" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <marker id="ar3" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#334155"/></marker>
+    <style>
+      .b{fill:#f1f5f9;stroke:#334155;stroke-width:1.6;}
+      .op{fill:#dbeafe;stroke:#1d4ed8;}
+      .phys{fill:#fee2e2;stroke:#b91c1c;}
+      .loss{fill:#dcfce7;stroke:#15803d;}
+      .t{font-size:18px;font-weight:700;fill:#0f172a;}
+      .l{font-size:14px;fill:#0f172a;}
+      .s{font-size:11.5px;fill:#475569;}
+      .p{fill:none;stroke:#334155;stroke-width:1.6;marker-end:url(#ar3);}
+    </style>
+  </defs>
+
+  <text x="20" y="32" class="t">Physics-informed (weak-form) training — no labelled targets needed</text>
+
+  <rect x="20" y="90" width="150" height="90" rx="9" class="b"/>
+  <text x="95" y="120" text-anchor="middle" class="l" font-weight="600">Input</text>
+  <text x="95" y="145" text-anchor="middle" class="s">( T&#8345; , &#945; , x )</text>
+  <text x="95" y="166" text-anchor="middle" class="s">no target T&#8345;&#8330;&#8321;</text>
+
+  <rect x="210" y="90" width="150" height="90" rx="9" class="b op"/>
+  <text x="285" y="130" text-anchor="middle" class="l" font-weight="600">FNO</text>
+  <text x="285" y="152" text-anchor="middle" class="s">predicts  T&#770;&#8345;&#8330;&#8321;</text>
+
+  <rect x="400" y="70" width="230" height="130" rx="9" class="b phys"/>
+  <text x="515" y="98" text-anchor="middle" class="l" font-weight="600" fill="#991b1b">FEM weak-form residual</text>
+  <text x="515" y="126" text-anchor="middle" class="s">assemble  M, K  from ( T&#8345; , &#945; )</text>
+  <text x="515" y="150" text-anchor="middle" class="s">r = (M + &#916;t·K)·T&#770;&#8345;&#8330;&#8321; &#8722; M·T&#8345;</text>
+  <text x="515" y="176" text-anchor="middle" class="s">on interior nodes</text>
+
+  <rect x="670" y="90" width="245" height="90" rx="9" class="b loss"/>
+  <text x="792" y="118" text-anchor="middle" class="l" font-weight="700" fill="#166534">Loss = ‖ r ‖²</text>
+  <text x="792" y="144" text-anchor="middle" class="s">drive the residual to zero</text>
+  <text x="792" y="165" text-anchor="middle" class="s">(the PDE is satisfied)</text>
+
+  <path class="p" d="M170,135 L208,135"/>
+  <path class="p" d="M360,135 L398,135"/>
+  <path class="p" d="M630,135 L668,135"/>
+
+  <!-- gradient loop -->
+  <path class="p" d="M792,180 C792,300 285,300 285,182"/>
+  <text x="470" y="322" text-anchor="middle" class="s" fill="#166534">back-propagate &#8706;Loss/&#8706;&#952; &#8594; update FNO weights</text>
+
+  <text x="20" y="360" class="s">The finite-element residual replaces the data term: the network is supervised by physics, not by a pre-computed solution.</text>
+</svg>
