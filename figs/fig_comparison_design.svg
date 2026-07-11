@@ -1,51 +1,33 @@
-<svg viewBox="0 0 940 470" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
-  <defs>
-    <style>
-      .t{font-size:18px;font-weight:700;fill:#0f172a;}
-      .l{font-size:13.5px;fill:#0f172a;}
-      .s{font-size:11px;fill:#475569;}
-      .hdr{font-size:13px;font-weight:600;fill:#fff;}
-      .cell{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1;}
-    </style>
-  </defs>
-
-  <text x="20" y="30" class="t">Controlled scaling study: 4 architectures × 3 capacity tiers</text>
-  <text x="20" y="52" class="s">Same data, same optimizer, same epochs — only the model and its size change (a fair comparison).</text>
-
-  <!-- header row -->
-  <rect x="150" y="70" width="180" height="40" fill="#dc2626"/><text x="240" y="95" text-anchor="middle" class="hdr">FNO</text>
-  <rect x="330" y="70" width="180" height="40" fill="#2563eb"/><text x="420" y="95" text-anchor="middle" class="hdr">DeepONet</text>
-  <rect x="510" y="70" width="180" height="40" fill="#16a34a"/><text x="600" y="95" text-anchor="middle" class="hdr">iFOL</text>
-  <rect x="690" y="70" width="180" height="40" fill="#7c3aed"/><text x="780" y="95" text-anchor="middle" class="hdr">Transformer</text>
-
-  <!-- tier rows -->
-  <g>
-    <rect x="20" y="110" width="130" height="70" fill="#334155"/><text x="85" y="150" text-anchor="middle" class="hdr">Small</text>
-    <rect x="150" y="110" width="180" height="70" class="cell"/>
-    <rect x="330" y="110" width="180" height="70" class="cell"/>
-    <rect x="510" y="110" width="180" height="70" class="cell"/>
-    <rect x="690" y="110" width="180" height="70" class="cell"/>
-  </g>
-  <g>
-    <rect x="20" y="180" width="130" height="70" fill="#334155"/><text x="85" y="220" text-anchor="middle" class="hdr">Medium</text>
-    <rect x="150" y="180" width="180" height="70" class="cell"/>
-    <rect x="330" y="180" width="180" height="70" class="cell"/>
-    <rect x="510" y="180" width="180" height="70" class="cell"/>
-    <rect x="690" y="180" width="180" height="70" class="cell"/>
-  </g>
-  <g>
-    <rect x="20" y="250" width="130" height="70" fill="#334155"/><text x="85" y="290" text-anchor="middle" class="hdr">Large</text>
-    <rect x="150" y="250" width="180" height="70" class="cell"/>
-    <rect x="330" y="250" width="180" height="70" class="cell"/>
-    <rect x="510" y="250" width="180" height="70" class="cell"/>
-    <rect x="690" y="250" width="180" height="70" class="cell"/>
-  </g>
-
-  <text x="500" y="160" text-anchor="middle" class="s" fill="#94a3b8">each cell = one trained model</text>
-
-  <!-- metrics -->
-  <rect x="20" y="355" width="890" height="95" rx="10" fill="#f1f5f9" stroke="#334155" stroke-width="1.4"/>
-  <text x="35" y="382" class="l" font-weight="700">Recorded for every cell:</text>
-  <text x="45" y="408" class="s">• In-distribution accuracy (relative L2 vs. FEM)   • Out-of-distribution accuracy (unseen profiles, super-resolution)</text>
-  <text x="45" y="430" class="s">• Parameter count   • Training time &amp; inference time   • Convergence history</text>
+<svg viewBox="0 0 940 500" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <style>
+    .t{font-size:18px;font-weight:700;fill:#0f172a;}
+    .s{font-size:11px;fill:#475569;}
+    .hdr{font-size:13px;font-weight:600;fill:#fff;}
+    .chip{font-size:10.5px;fill:#334155;}
+  </style>
+  <text x="20" y="28" class="t">Study design &#8212; 12 models: 4 architectures &#215; 3 capacity tiers</text>
+  <text x="20" y="49" class="s">A plan, not results. Each cell is one model, trained on the same data, optimizer, and epochs (a fair comparison).</text>
+  <rect x="150" y="70" width="180" height="40" rx="6" fill="#dc2626"/><text x="240" y="95" text-anchor="middle" class="hdr">FNO</text>
+  <rect x="335" y="70" width="180" height="40" rx="6" fill="#2563eb"/><text x="425" y="95" text-anchor="middle" class="hdr">DeepONet</text>
+  <rect x="520" y="70" width="180" height="40" rx="6" fill="#16a34a"/><text x="610" y="95" text-anchor="middle" class="hdr">iFOL</text>
+  <rect x="705" y="70" width="180" height="40" rx="6" fill="#7c3aed"/><text x="795" y="95" text-anchor="middle" class="hdr">Transformer</text>
+  <rect x="20" y="118" width="125" height="72" rx="6" fill="#334155"/><text x="82" y="159" text-anchor="middle" class="hdr">Small</text>
+  <rect x="20" y="196" width="125" height="72" rx="6" fill="#334155"/><text x="82" y="237" text-anchor="middle" class="hdr">Medium</text>
+  <rect x="20" y="274" width="125" height="72" rx="6" fill="#334155"/><text x="82" y="315" text-anchor="middle" class="hdr">Large</text>
+<rect x="150" y="118" width="180" height="72" rx="6" fill="#fef2f2" stroke="#fca5a5"/><circle cx="228" cy="148" r="9" fill="#dc2626"/><path d="M224,148 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="240" y="174" text-anchor="middle" class="chip">1 model</text>
+<rect x="335" y="118" width="180" height="72" rx="6" fill="#eff6ff" stroke="#93c5fd"/><circle cx="413" cy="148" r="9" fill="#2563eb"/><path d="M409,148 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="425" y="174" text-anchor="middle" class="chip">1 model</text>
+<rect x="520" y="118" width="180" height="72" rx="6" fill="#f0fdf4" stroke="#86efac"/><circle cx="598" cy="148" r="9" fill="#16a34a"/><path d="M594,148 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="610" y="174" text-anchor="middle" class="chip">1 model</text>
+<rect x="705" y="118" width="180" height="72" rx="6" fill="#faf5ff" stroke="#c4b5fd"/><circle cx="783" cy="148" r="9" fill="#7c3aed"/><path d="M779,148 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="795" y="174" text-anchor="middle" class="chip">1 model</text>
+<rect x="150" y="196" width="180" height="72" rx="6" fill="#fef2f2" stroke="#fca5a5"/><circle cx="228" cy="226" r="9" fill="#dc2626"/><path d="M224,226 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="240" y="252" text-anchor="middle" class="chip">1 model</text>
+<rect x="335" y="196" width="180" height="72" rx="6" fill="#eff6ff" stroke="#93c5fd"/><circle cx="413" cy="226" r="9" fill="#2563eb"/><path d="M409,226 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="425" y="252" text-anchor="middle" class="chip">1 model</text>
+<rect x="520" y="196" width="180" height="72" rx="6" fill="#f0fdf4" stroke="#86efac"/><circle cx="598" cy="226" r="9" fill="#16a34a"/><path d="M594,226 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="610" y="252" text-anchor="middle" class="chip">1 model</text>
+<rect x="705" y="196" width="180" height="72" rx="6" fill="#faf5ff" stroke="#c4b5fd"/><circle cx="783" cy="226" r="9" fill="#7c3aed"/><path d="M779,226 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="795" y="252" text-anchor="middle" class="chip">1 model</text>
+<rect x="150" y="274" width="180" height="72" rx="6" fill="#fef2f2" stroke="#fca5a5"/><circle cx="228" cy="304" r="9" fill="#dc2626"/><path d="M224,304 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="240" y="330" text-anchor="middle" class="chip">1 model</text>
+<rect x="335" y="274" width="180" height="72" rx="6" fill="#eff6ff" stroke="#93c5fd"/><circle cx="413" cy="304" r="9" fill="#2563eb"/><path d="M409,304 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="425" y="330" text-anchor="middle" class="chip">1 model</text>
+<rect x="520" y="274" width="180" height="72" rx="6" fill="#f0fdf4" stroke="#86efac"/><circle cx="598" cy="304" r="9" fill="#16a34a"/><path d="M594,304 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="610" y="330" text-anchor="middle" class="chip">1 model</text>
+<rect x="705" y="274" width="180" height="72" rx="6" fill="#faf5ff" stroke="#c4b5fd"/><circle cx="783" cy="304" r="9" fill="#7c3aed"/><path d="M779,304 l3,3 l6,-7" stroke="#fff" stroke-width="2" fill="none"/><text x="795" y="330" text-anchor="middle" class="chip">1 model</text>
+<rect x="20" y="378" width="865" height="100" rx="10" fill="#f1f5f9" stroke="#334155" stroke-width="1.4"/>
+<text x="35" y="405" font-size="13.5" font-weight="700" fill="#0f172a">Recorded for every model:</text>
+<text x="45" y="431" class="s">&#8226; In-distribution accuracy (relative L2 vs. FEM)   &#8226; Out-of-distribution accuracy (unseen profiles, super-resolution)</text>
+<text x="45" y="453" class="s">&#8226; Parameter count   &#8226; Training &amp; inference time   &#8226; Convergence history</text>
 </svg>
