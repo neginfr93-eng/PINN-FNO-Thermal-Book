@@ -1,30 +1,43 @@
 # Neural Operators for Nonlinear Heat Conduction
 
-A structured, article-style study of physics-informed and data-driven **neural operators**
-for 1-D nonlinear heat conduction, built as a Jupyter Book and hosted on GitHub Pages.
+Welcome. This book is a hands-on, article-style introduction to solving **nonlinear
+heat-conduction problems** with modern scientific machine learning — from classical
+solvers and physics-informed neural networks through to **neural operators** that learn
+the solution map itself.
 
-## Structure
+Every chapter pairs the mathematics with runnable code and figures, so you can read it as
+a tutorial, a reference, or a worked case study.
 
-**I. Foundations — Solvers and Neural Networks**
-- `1D_Thermal_PINN_FEM_FDM` — finite-element / finite-difference solvers and a PINN baseline.
+## What you will learn
 
-**II. Steady-State Neural Operators**
-- `FNO_STEADY_STATE` — the Fourier Neural Operator baseline.
-- `FNO_loss_comparison` — one FNO under three losses; concludes with the weighted-residual (FOL) loss.
-- `architecture_comparison` — FNO vs DeepONet vs iFOL vs Transformer; concludes with FNO.
+- How a 1-D nonlinear heat-conduction problem is posed and solved with the finite-difference
+  and finite-element methods.
+- How **physics-informed neural networks (PINNs)** turn a differential equation into a loss.
+- What a **neural operator** is, and how the **Fourier Neural Operator (FNO)** learns a map
+  between functions rather than a single solution.
+- How the choice of **training objective** (data-driven vs. physics-based weighted residual)
+  changes accuracy and generalization.
+- How different **architectures** (FNO, DeepONet, iFOL, Transformer) compare under a fair,
+  controlled study.
+- How these ideas extend from steady state to **time-dependent (transient)** problems.
 
-**III. Transient Neural Operators**
-- `FNO_transient_data_driven` — data-driven transient operator.
-- `FNO_transient_weighted_residual` — weighted-residual (label-free) transient operator.
-- `transient_comparison` — mean rollout error per step, data-driven vs weighted-residual.
+## How the book is organized
 
-## Build & deploy
+**Part I — Foundations.** The governing physics, classical solvers (finite difference and
+finite element), and a physics-informed neural network baseline.
 
-```bash
-pip install -r requirements.txt
-jupyter-book build .
-ghp-import -n -p -f _build/html      # or just push to main; the GitHub Action rebuilds
-```
+**Part II — Steady-State Neural Operators.** The Fourier Neural Operator; a comparison of
+training losses that motivates the weighted-residual objective; and a controlled comparison
+of neural-operator architectures.
 
-Figures are published from the outputs stored in each notebook (`execute_notebooks: off`).
-See `CLAUDE.md` for project conventions and the open to-do list.
+**Part III — Transient Neural Operators.** Operators that advance the temperature field in
+time — trained on data and trained physics-informed — and a direct comparison of the two.
+
+Use the table of contents on the left to navigate. Chapters are largely self-contained, but
+reading in order builds the ideas from the ground up.
+
+## Who it is for
+
+Students and researchers who know a little calculus and Python and want a practical,
+example-driven path into physics-informed learning and neural operators. No prior experience
+with neural operators is assumed.
