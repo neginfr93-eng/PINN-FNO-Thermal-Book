@@ -31,9 +31,9 @@
   <text x="515" y="176" text-anchor="middle" class="s">on interior nodes</text>
 
   <rect x="670" y="90" width="245" height="90" rx="9" class="b loss"/>
-  <text x="792" y="118" text-anchor="middle" class="l" font-weight="700" fill="#166534">Loss = ‖ r ‖²</text>
-  <text x="792" y="144" text-anchor="middle" class="s">drive the residual to zero</text>
-  <text x="792" y="165" text-anchor="middle" class="s">(the PDE is satisfied)</text>
+  <text x="792" y="116" text-anchor="middle" class="l" font-weight="700" fill="#166534">Loss = &#10216; T&#770;&#183;r &#10217;</text>
+  <text x="792" y="142" text-anchor="middle" class="s">weighted (Galerkin) residual:</text>
+  <text x="792" y="163" text-anchor="middle" class="s">prediction acts as test function</text>
 
   <path class="p" d="M170,135 L208,135"/>
   <path class="p" d="M360,135 L398,135"/>
