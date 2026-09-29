@@ -8,6 +8,8 @@
 
 Can a neural operator learn the solution map of a nonlinear, heterogeneous heat-conduction problem accurately enough to replace repeated finite-element solves? Can it do so from the physics alone, without labelled solutions? And does it generalize to inputs and grids it was never trained on? All experiments use one benchmark, a rod with conductivity $k(x,T)=\alpha(x)(0.5+T^2)$ (see [The Benchmark Problem](benchmark_problem.ipynb)). Every model is graded against the same fine, fully implicit finite-element reference.
 
+**Hyperparameters.** The hyperparameters were selected in a dedicated study, and the best configuration was then held fixed across the models being compared. Each comparison therefore changes only the quantity under study (the training loss, the architecture, or the training signal), so differences in the results can be attributed to it.
+
 ## 2. Findings, chapter by chapter
 
 The values below are taken from the executed chapters. Errors are measured against the fine reference on the 100 held-out samples, or on the 300 out-of-distribution (OOD) evaluations: 50 unseen shapes on 6 grids from $N=64$ to $256$.
@@ -49,7 +51,6 @@ The values below are taken from the executed chapters. Errors are measured again
 - **One training run per configuration.** No results are averaged over random seeds. The PITI MODES ablation shows that run-to-run variation can change qualitative conclusions for intermediate settings.
 - **One dimension and modest material contrast.** The in-distribution materials vary by a factor of about 1.9, and all problems are 1-D.
 - **Single-precision training.** The networks run in float32; only the references are float64.
-- **Fixed budgets.** Architectures and losses were compared at fixed epoch budgets and learning rates, without per-model tuning.
 
 ## 5. Outlook
 
