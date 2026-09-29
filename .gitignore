@@ -1,0 +1,9 @@
+_build/
+__pycache__/
+.ipynb_checkpoints/
+# FEM reference solves used by the transient chapters -- too large for GitHub (>100 MB).
+# Copy them into checkpoints/ locally to re-run the notebooks.
+checkpoints/fine_reference.npz
+checkpoints/ood_fine_reference.pkl
+# figure files saved as by-products by the transient notebooks (figures are embedded in the .ipynb)
+*.png

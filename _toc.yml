@@ -2,9 +2,10 @@ format: jb-book
 root: README
 
 parts:
-  - caption: "I. Foundations — Solvers and Neural Networks"
+  - caption: "I. Foundations"
     chapters:
       - file: 1D_Thermal_PINN_FEM_FDM
+      - file: benchmark_problem
 
   - caption: "II. Steady-State Neural Operators"
     chapters:
@@ -16,4 +17,9 @@ parts:
     chapters:
       - file: FNO_transient_data_driven
       - file: FNO_transient_weighted_residual
+      - file: FNO_transient_PITI
       - file: transient_comparison
+
+  - caption: "IV. Synthesis"
+    chapters:
+      - file: conclusions
