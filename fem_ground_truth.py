@@ -1,6 +1,6 @@
 """
 Reusable ground-truth generator for the 1D nonlinear transient heat-conduction
-problem used across the FNO_transient_weighted_residual* notebooks:
+problem used across the transient and steady-state chapters:
 
     rho_cp * dT/dt = d/dx( k(x,T) * dT/dx ),   k(x,T) = alpha(x) * (0.5 + T^2)
 
@@ -275,11 +275,8 @@ def get_staircase_T0(n, transition_width=0.02, key=None):
     spans ~1.3 elements at N_GRID=64, so it's still under-resolved there,
     same stress-test intent as a true step), but bounded-gradient, so linear
     FEM converges at its normal rate here instead of the reduced rate a true
-    discontinuity forces. That's what let this shape share one common
-    (dt_ref, reference_n_nodes) with every other case instead of needing its
-    own finer settings -- see fem_self_convergence_study.py's spatial study,
-    where the old hard-jump version was still ~7e-3 unconverged at N=512
-    while every other shape had long since dropped under tolerance.
+    discontinuity forces, so this shape shares one common (dt_ref,
+    reference_n_nodes) with every other case.
 
     key=None (default) reproduces the original single fixed shape (edge at
     x=0.5, transition_width as given). Pass a PRNGKey to get one randomized
@@ -670,31 +667,27 @@ def get_dataset(path, n_samples, max_steps, n_nodes=DEFAULT_N_NODES, seed_k=42, 
 # but not fair for comparing FNOs trained/tested at DIFFERENT resolutions (or
 # different notebooks with different dt scales) against each other, since each
 # fresh solve's own discretization error gets conflated with the model's error
-# (same reasoning as precompute_ood_reference_dataset above, now applied to the
-# in-distribution generator too).
+# (same reasoning as precompute_ood_reference_dataset above, applied to the
+# in-distribution generator).
 #
 # The extra wrinkle here that OOD doesn't have: generate_T0_alpha's Gaussian-
 # random-process branch samples its field via a Cholesky factorization built ON
 # THE MESH ITSELF -- the same key at two different n_nodes gives two UNRELATED
-# random fields, not two resolutions of the same field (see
-# fem_convergence_study_indist.py's docstring, which worked around this by
-# filtering GRF samples out of its convergence sweep entirely). Fixing the field
+# random fields, not two resolutions of the same field. Fixing the field
 # ONCE at a fine mesh here, and only ever interpolating it DOWN afterwards,
 # sidesteps that problem completely: every resolution gets a real, well-defined
 # coarsening of the exact same underlying field, GRF branch included.
 #
 # Typical use from any script:
 #
-#     from fem_ground_truth import get_field_pool, get_resolution_dataset, subsample_to_dt
+#     from fem_ground_truth import get_field_pool, get_reference_trajectory, derive_dataset
 #
 #     get_field_pool("checkpoints/field_pool.npz", n_samples=1000)   # once, cheap (no FEM solve)
+#     ref = get_reference_trajectory("checkpoints/fine_reference.npz", "checkpoints/field_pool.npz",
+#                                    dt_ref=0.001, steps_ref=400)    # once, expensive
+#     data = derive_dataset(ref, n_nodes_target=64, dt_target=0.02)   # any (n_nodes, dt), no re-solve
 #
-#     big = get_resolution_dataset("checkpoints/res64_dt02.npz", "checkpoints/field_pool.npz",
-#                                   n_nodes=64, dt=0.02, steps=19)
-#     fine = get_resolution_dataset("checkpoints/res64_dt0002.npz", "checkpoints/field_pool.npz",
-#                                    n_nodes=64, dt=0.0002, steps=1900)
-#
-#     # Two scripts sharing pool_path always start from the SAME T0/alpha fields,
+#     # Scripts sharing pool_path always start from the SAME T0/alpha fields,
 #     # no matter what resolution/dt each one asks for.
 # =============================================================================
 
@@ -720,9 +713,9 @@ def precompute_field_pool(path, n_samples, reference_n_nodes=DEFAULT_REFERENCE_N
                            seed_k=42, seed_t=7):
     """Generate and disk-cache ONE fixed pool of in-distribution (T0, alpha) pairs at
     a fine reference_n_nodes mesh -- input fields only, no FEM solving (cheap, seconds
-    not minutes). This is the single fixed pool every (n_nodes, dt) combo should be
-    solved from via get_resolution_dataset below, instead of calling generate_T0_alpha
-    fresh at each resolution. Always recomputes -- use get_field_pool for the
+    not minutes). This is the single fixed pool every (n_nodes, dt) combination is
+    derived from (get_reference_trajectory + derive_dataset below), instead of calling
+    generate_T0_alpha fresh at each resolution. Always recomputes -- use get_field_pool for the
     load-if-cached, else-compute version."""
     keys_k = jax.random.split(jax.random.PRNGKey(seed_k), n_samples)
     keys_t = jax.random.split(jax.random.PRNGKey(seed_t), n_samples)
@@ -763,22 +756,18 @@ def get_field_pool(path, n_samples, reference_n_nodes=DEFAULT_REFERENCE_N_NODES,
 
 
 # -----------------------------------------------------------------------------
-# get_resolution_dataset (an earlier version of this idea) resampled T0/alpha
-# down to the target n_nodes and then SOLVED FEM FRESH AT THAT RESOLUTION --
-# which only fixes cross-resolution INPUT consistency (the GRF problem above).
-# The resulting trajectory still carried that target resolution's own spatial
-# discretization error, exactly the problem precompute_ood_reference_dataset
-# already avoids for OOD (solve once at the fine mesh, interpolate the SOLVED
-# TRAJECTORY down -- never re-solve at the coarser target). Replaced below by
-# the same solve-once-interpolate-down pattern, now for in-distribution data.
+# Solve once, interpolate down: the pool is solved once on its own fine mesh and
+# every coarser (n_nodes, dt) is derived from that solved trajectory, never
+# re-solved at the coarser target -- so derived data carry only the fine mesh's
+# discretization error (the same pattern as the OOD reference above).
 # -----------------------------------------------------------------------------
 def _chunked_batch_fem_rollout(T0_batch, alpha_batch, steps, dt, rho_cp, newton_iters, chunk_size):
     """Same result as batch_fem_rollout, computed sample-chunk by sample-chunk instead
     of vmapping the whole batch at once. solve_transient_fem_step's exact Jacobian
     (jax.jacfwd) already needs O(n_nodes^2) memory for a SINGLE sample; batch_fem_rollout
     vmaps that across the whole batch, so a large batch (e.g. 1000 samples at n_nodes=513)
-    can ask for far more device memory than any GPU has in one shot (observed: ~2.17TB
-    for batch=1000). Chunking bounds peak memory to chunk_size samples' worth, at the
+    can ask for far more device memory than any GPU has in one shot (about 2 TB for
+    batch=1000). Chunking bounds peak memory to chunk_size samples' worth, at the
     cost of chunk_size being small enough to fit -- same total FLOPs and identical
     results either way, just computed in smaller pieces. chunk_size=1 is always safe
     (matches the proven-working single-sample fem_rollout path) but slower; raise it as

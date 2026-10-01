@@ -25,10 +25,8 @@ REF_DT, REF_STEPS = 0.001, 400
 # Early stopping (no fixed epoch count): train up to MAX_EPOCHS, stopping sooner if
 # held-out validation MSE stalls/worsens for PATIENCE consecutive checks.
 MAX_EPOCHS = 20000      # same budget as the weighted-residual and PITI chapters
-# Optional cap on CHECKPOINT SELECTION (training still runs to MAX_EPOCHS). An earlier
-# version of this chapter capped it at 12000 because OOD error appeared to rise under long
-# training; on the shared FEM reference Section 9 shows OOD error keeps FALLING instead,
-# so no cap is applied.
+# Optional cap on checkpoint selection (training always runs to MAX_EPOCHS). Set to
+# MAX_EPOCHS, i.e. no cap: Section 9 shows OOD error keeps falling with training.
 DATA_MAX_EPOCHS = MAX_EPOCHS
 CHECK_EVERY = 200
 PATIENCE = 15

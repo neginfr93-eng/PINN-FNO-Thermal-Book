@@ -25,6 +25,5 @@ parse:
 
 # keep project/helper files out of the published site
 exclude_patterns:
-  - CLAUDE.md
   - requirements.txt
   - _build
